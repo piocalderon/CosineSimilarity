@@ -1,4 +1,4 @@
-land-use-model
+Land Use Model
 ==============
 
-Axelrod + local interaction model of land use change on a Voronoi diagram
+Dump of codes used to 1.) implement a land use model with dynamics governed by Axelrod-like rules and local interaction,  and 2.) analyze 2D patterns using frame-by-frame cosine similarity.
