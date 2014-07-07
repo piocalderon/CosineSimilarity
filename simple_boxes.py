@@ -28,7 +28,10 @@ def constructChessGrid(gridSize, sizeBox, probability, run, mutation):
     im.save("grid_s{0}_sb{1}_p{2}_run{3}_m{4}.png".format(gridSize,sizeBox, probability, run,mutation))
     return grid
 
-def main(sizeBoxList, probabilities, mutations, numRun, size)
+def main(sizeBoxList, probabilities, mutations, numRun, size):
+    """
+    Check cosine similarity for different chessgrids.
+    """
     for sizeBox in sizeBoxList:
         for mutation in mutations:
             for probability in probabilities:
@@ -55,12 +58,6 @@ def main(sizeBoxList, probabilities, mutations, numRun, size)
             plt.savefig("CS_grid_s{0}_sb{1}_m{2}.png".format(size,sizeBox,mutation),bbox_inches="tight")
             plt.close()
         
-sizeBoxList = [64,32,16,8,4,2,1]
-probabilities = [0.25,0.375,0.5]
-mutations = [0]
-numRun=10
-size = 128
-
 if __name__ == "__main__":
     sizeBoxList = [64,32,16,8,4,2,1]
     probabilities = [0.25,0.375,0.5]
