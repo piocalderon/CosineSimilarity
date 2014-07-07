@@ -21,12 +21,9 @@ def plot_cosine_similarity(arr,imgPath):
     
     similarityList = []
     for frameLength in frameLengths:
-        #print list(frameLengths).index(frameLength)
-        numCol = left2right - frameLength + 1#int(math.ceil(1.0*left2right/frameLength))
+
+        numCol = left2right - frameLength + 1
         numRow = up2down - frameLength + 1
-        #arrCopy=np.copy(arr)
-        #arrCopy.resize(frameLength*numCol, frameLength*numCol, 4)
-        #arrCopy= np.copy(arrCopy)
         count = []
         similarity = 0
 
@@ -91,16 +88,14 @@ def plot_cosine_similarity(arr,imgPath):
             for j in range(numCol):
                 if i == numRow-1 and j == numCol-1: #last entry
                     continue
-                elif j!= 0 and j % (numCol - 1) == 0 and numCol - (j+1) >= frameLength: # nasa last columnnn
+                elif j!= 0 and j % (numCol - 1) == 0 and numCol - (j+1) >= frameLength: # last column
                     toCompareIndex = (i*numRow + j) + frameLength*numCol
                     counter += 1
                     similarity += sum(count[i*numRow+j]* count[toCompareIndex])
-                    #print count[i*numRow + j], count[toCompareIndex]
-                elif ((i* numRow+ j) / numRow) + 1 >= numRow and numRow - (i+1) >= frameLength: # nasa last row
+                elif ((i* numRow+ j) / numRow) + 1 >= numRow and numRow - (i+1) >= frameLength: # last row
                     toCompareIndex = (i*numRow + j) + frameLength*1
                     counter += 1
                     similarity += sum(count[i*numRow + j] * count[toCompareIndex])
-                    #print count[i*numRow + j],count[toCompareIndex]
                 else:
                     toCompareIndexList = []
                     if numCol - (j+1) >= frameLength:
@@ -110,7 +105,6 @@ def plot_cosine_similarity(arr,imgPath):
                     for toCompareIndex in toCompareIndexList:
                         counter += 1
                         similarity += sum(count[i*numRow + j] * count[toCompareIndex])            
-                        #print count[i*numRow + j],count[neighborIndex]
 
         similarityList.append(similarity/counter)
 
