@@ -11,14 +11,13 @@ import math
 import matplotlib.pyplot as plt
 
 def plot_cosine_similarity(arr,imgPath):
-        
+    """
+    Plots to a png file and records to a csv file the cosine similarity of an image
+    as a function of the frameLength.
+    """
     left2right, up2down = int(arr.shape[1]),int(arr.shape[0])
-    #frameLengths = list(set([int(1.0*left2right/i) for i in range(2,left2right+1)]))
-    #frameLengths.sort()
     ratio= np.linspace(0.01,0.5,50)
     frameLengths= np.array(ratio*left2right, dtype="int")
-    
-    #frameLengths = [int(0.34*902)]
     
     similarityList = []
     for frameLength in frameLengths:
@@ -30,18 +29,7 @@ def plot_cosine_similarity(arr,imgPath):
         #arrCopy= np.copy(arrCopy)
         count = []
         similarity = 0
-        
-#        check = []
-#        for i in [numCol-1]:
-#            for j in xrange(numCol):
-#                rowIndex1 = i*frameLength
-#                colIndex1 = j*frameLength
-#                frame = arr[rowIndex1:, colIndex1:]           
-#                check.append(list(frame))
-#        if check == [[]]*numCol:
-#            numRow = numCol-1
-#        else:
-#            numRow = numCol
+
         for i in xrange(numRow):
             for j in xrange(numCol):
                 rowIndex1, rowIndex2 = i, i+frameLength
@@ -98,14 +86,10 @@ def plot_cosine_similarity(arr,imgPath):
                         normalization = 1
                     count[-1] =count[-1]/normalization 
 
-#                if i==2:
-#                    if j==0 or j==1 or j==2:
-#                        print frame
-        #print "still doing: ", index, " out of ", len(frameLengths)
         counter = 0
         for i in range(numRow):
             for j in range(numCol):
-                if i == numRow-1 and j == numCol-1: #lase entry
+                if i == numRow-1 and j == numCol-1: #last entry
                     continue
                 elif j!= 0 and j % (numCol - 1) == 0 and numCol - (j+1) >= frameLength: # nasa last columnnn
                     toCompareIndex = (i*numRow + j) + frameLength*numCol
@@ -129,7 +113,7 @@ def plot_cosine_similarity(arr,imgPath):
                         #print count[i*numRow + j],count[neighborIndex]
 
         similarityList.append(similarity/counter)
-    """
+
     cosfig = plt.figure()
     ax= cosfig.add_subplot(111)
     ax.plot(ratio, similarityList)
@@ -137,7 +121,6 @@ def plot_cosine_similarity(arr,imgPath):
     plt.ylabel('average cosine similarity')
     plt.savefig('cosinesimilarity_{0}.png'.format(imgPath))
     
-    """
     g=open('cosinesimilarity_{0}.csv'.format(imgPath[:-4]), 'w')
     g.write('framelength,similarity\n')
     for index in xrange(len(frameLengths)):
